@@ -1,0 +1,12 @@
+<resources>
+    <string name="send_in_progress">שולח…</string>
+    <string name="send_success">הצלחה!</string>
+    <string name="send_failed">השליחה נכשלה. בדוק חיבור לאינטרנט</string>
+    <string name="error_missing_message">יש לכתוב הודעה</string>
+    <string name="error_message_too_long">ההודעה ארוכה מ-1900 תווים. בבקשה לקצר</string>
+    <string name="send">שלח</string>
+    <string name="cancel">בטל</string>
+    <string name="message_in_tag">ההודעה בקטגורית %s</string>
+    <string name="message_send_to_count">ההודעה תישלח לכל המכשירים בקטגורית %s. האם אתה בטוח?</string>
+    <string name="notification_text_hint">רשום את תוכן ההודעה פה</string>
+</resources>

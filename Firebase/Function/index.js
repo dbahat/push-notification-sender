@@ -1,5 +1,4 @@
 const functions = require('firebase-functions');
-// The Firebase Admin SDK to access the Firebase Realtime Database. 
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
@@ -12,7 +11,7 @@ exports.sendPush = functions.https.onRequest((req, res) => {
   return admin.auth().verifyIdToken(tokenId)
     .then(function(decoded) { 
       console.log("Successfully authenticated");
-      if (decoded.uid !== 'EGjatSWgFPXM8Y3uzYTtVm2NEv22') {
+      if ((decoded.uid !== 'EGjatSWgFPXM8Y3uzYTtVm2NEv22') && (decoded.uid !== 'AFO2UyGAjxSeHYCF8ykDrwJjViq2')) {
         console.log("Got unauthorized user access for uid: " + decoded.uid)
         res.status(403).send("unauthorized");
         return;
@@ -22,13 +21,17 @@ exports.sendPush = functions.https.onRequest((req, res) => {
         res.status(400).send('No topic defined!');
         return;
       } 
-      
+      console.log("Got authorized user access with uid: " + decoded.uid);
       var payload = {
         notification: {
           body: req.body.body
+        },
+        data: {
+          message: req.body.body,
+          topic: req.body.topic
         }
       };
-      
+
       if (req.body.title) {
         payload.notification.title = req.body.title
       }

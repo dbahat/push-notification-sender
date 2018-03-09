@@ -1,79 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:id="@+id/activity_main"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:layoutDirection="rtl"
-              android:layout_margin="8dp"
-              tools:context=".NotificationsActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    tools:context=".NotificationsActivity">
 
     <RadioGroup
         android:id="@+id/radio_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checkedButton="@id/general_button">
+
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="חירום"
-            android:tag="harucon2018_emergency"/>
+            android:tag="harucon2018_emergency"
+            android:text="חירום" />
+
         <RadioButton
             android:id="@+id/general_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="כללי"
-            android:tag="harucon2018_general"/>
+            android:tag="harucon2018_general"
+            android:text="כללי" />
+
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="אירועים"
-            android:tag="harucon2018_events"/>
+            android:tag="harucon2018_events"
+            android:text="אירועים" />
+
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="קוספליי"
-            android:tag="harucon2018_cosplay"/>
+            android:tag="harucon2018_cosplay"
+            android:text="קוספליי" />
+
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="הסעות"
-            android:tag="harucon2018_bus"/>
+            android:tag="harucon2018_bus"
+            android:text="הסעות" />
+
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="בדיקות"
-            android:tag="harucon2018_test"/>
+            android:tag="harucon2018_test"
+            android:text="בדיקות" />
 
     </RadioGroup>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/send"
-            android:onClick="sendNotificationButtonOnClick"/>
+            android:onClick="sendNotificationButtonOnClick"
+            android:text="@string/send" />
 
     </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/remainingCharsCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0/1900"/>
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
-        android:inputType="text"
+        android:layout_height="wrap_content"
         android:hint="@string/notification_text_hint"
-        android:layout_height="wrap_content" />
+        android:inputType="textMultiLine"
+        android:maxLines="5000" />
 
 </LinearLayout>

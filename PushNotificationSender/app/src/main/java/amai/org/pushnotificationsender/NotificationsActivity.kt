@@ -21,7 +21,6 @@ class NotificationsActivity : AppCompatActivity() {
 
     private lateinit var requestQueue: RequestQueue
     private lateinit var editText: EditText
-    private lateinit var remainingChars: TextView
 
     private val API_URL = "https://us-central1-starlit-brand-95018.cloudfunctions.net/sendPush"
 
@@ -30,21 +29,7 @@ class NotificationsActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_notifications)
         requestQueue = Volley.newRequestQueue(this)
-
         editText = findViewById(R.id.editText)
-        remainingChars = findViewById(R.id.remainingCharsCount)
-
-        editText.addTextChangedListener(object: TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                remainingChars.text = String.format("%d/1900", editText.length())
-            }
-        })
     }
 
     fun sendNotificationButtonOnClick(view: View) {

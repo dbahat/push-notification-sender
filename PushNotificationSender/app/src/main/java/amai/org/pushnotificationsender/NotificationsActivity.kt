@@ -23,6 +23,8 @@ class NotificationsActivity : AppCompatActivity() {
     private lateinit var requestQueue: RequestQueue
     private lateinit var editText: EditText
 
+    private var latestMessageId = UUID.randomUUID()
+
     private val API_URL = "https://us-central1-starlit-brand-95018.cloudfunctions.net/sendPush"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,9 +47,9 @@ class NotificationsActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
                 .setTitle(getString(R.string.message_in_tag, category))
                 .setMessage(getString(R.string.message_send_to_count, category))
-                .setPositiveButton(R.string.send, { _, _ ->
+                .setPositiveButton(R.string.send) { _, _ ->
                     sendNotification()
-                })
+                }
                 .setNegativeButton(R.string.cancel, null)
                 .create()
                 .show()
@@ -70,8 +72,16 @@ class NotificationsActivity : AppCompatActivity() {
         }
     }
 
-
     private fun sendNotification(token: String, id: UUID) {
+        // On some occasions this method may be called multiple times for the same message by firebase.
+        // See https://github.com/firebase/quickstart-android/issues/80
+        // To workaround this, ignore messages with identical IDs.
+        if (latestMessageId.equals(id)) {
+            Log.w("NotificationsActivity", "Ignoring duplicate message $id")
+            return
+        }
+        latestMessageId = id
+
         val checkedRadioButtonId = findViewById<RadioGroup>(R.id.radio_group).checkedRadioButtonId
         val category = findViewById<View>(checkedRadioButtonId).tag.toString()
         val json = Gson().toJson(Notification(category, null, editText.text.toString(), id.toString()))

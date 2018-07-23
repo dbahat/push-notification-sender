@@ -16,6 +16,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
+import java.util.*
 
 class NotificationsActivity : AppCompatActivity() {
 
@@ -53,24 +54,27 @@ class NotificationsActivity : AppCompatActivity() {
     }
 
     private fun sendNotification() {
+        val notificationId = UUID.randomUUID()
+
         val user = FirebaseAuth.getInstance().currentUser
         if (user == null) {
             finish()
             return
         }
-        user.getIdToken(true).addOnCompleteListener({task ->
+        user.getIdToken(true).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                sendNotification(task.result.token ?: "")
+                sendNotification(task.result.token ?: "", notificationId)
             } else {
                 Toast.makeText(this, "failed to obtain user id token", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
     }
 
-    private fun sendNotification(token: String) {
+
+    private fun sendNotification(token: String, id: UUID) {
         val checkedRadioButtonId = findViewById<RadioGroup>(R.id.radio_group).checkedRadioButtonId
         val category = findViewById<View>(checkedRadioButtonId).tag.toString()
-        val json = Gson().toJson(Notification(category, null, editText.text.toString()))
+        val json = Gson().toJson(Notification(category, null, editText.text.toString(), id.toString()))
 
         val request = object : StringRequest(Request.Method.POST, API_URL, Response.Listener<String> {
             Toast.makeText(this@NotificationsActivity, R.string.send_success, Toast.LENGTH_SHORT).show()
@@ -98,5 +102,5 @@ class NotificationsActivity : AppCompatActivity() {
         requestQueue.add(request)
     }
 
-    private class Notification(val topic: String, val title: String?, val body: String)
+    private class Notification(val topic: String, val title: String?, val body: String, val id: String)
 }

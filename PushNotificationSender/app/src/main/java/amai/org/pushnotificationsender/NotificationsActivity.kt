@@ -3,12 +3,14 @@ package amai.org.pushnotificationsender
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.Toast
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -17,6 +19,7 @@ import com.android.volley.toolbox.Volley
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class NotificationsActivity : AppCompatActivity() {
 
@@ -57,6 +60,7 @@ class NotificationsActivity : AppCompatActivity() {
 
     private fun sendNotification() {
         val notificationId = UUID.randomUUID()
+        Log.v("NotificationsActivity", "getting token to send notification $notificationId")
 
         val user = FirebaseAuth.getInstance().currentUser
         if (user == null) {
@@ -73,10 +77,12 @@ class NotificationsActivity : AppCompatActivity() {
     }
 
     private fun sendNotification(token: String, id: UUID) {
+        Log.v("NotificationsActivity", "sending notification $id")
+
         // On some occasions this method may be called multiple times for the same message by firebase.
         // See https://github.com/firebase/quickstart-android/issues/80
         // To workaround this, ignore messages with identical IDs.
-        if (latestMessageId.equals(id)) {
+        if (latestMessageId == id) {
             Log.w("NotificationsActivity", "Ignoring duplicate message $id")
             return
         }
@@ -107,6 +113,11 @@ class NotificationsActivity : AppCompatActivity() {
                 return headers
             }
         }
+
+        request.retryPolicy = DefaultRetryPolicy(
+                TimeUnit.SECONDS.toMillis(60).toInt(),
+                0,  // Disabling retry, since it may cause duplicated push notifications to be sent.
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
 
         Toast.makeText(this, R.string.send_in_progress, Toast.LENGTH_SHORT).show()
         requestQueue.add(request)

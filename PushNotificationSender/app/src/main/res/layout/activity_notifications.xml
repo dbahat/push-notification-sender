@@ -18,38 +18,38 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:tag="cami2018_emergency"
+            android:tag="harucon2019_emergency"
             android:text="חירום" />
 
         <RadioButton
             android:id="@+id/general_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:tag="cami2018_general"
+            android:tag="harucon2019_general"
             android:text="כללי" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:tag="cami2018_events"
+            android:tag="harucon2019_events"
             android:text="אירועים" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:tag="cami2018_cosplay"
+            android:tag="harucon2019_cosplay"
             android:text="קוספליי" />
 
         <!--<RadioButton-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:tag="cami2018_bus"-->
+            <!--android:tag="harucon2019_bus"-->
             <!--android:text="הסעות" />-->
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:tag="cami2018_test"
+            android:tag="harucon2019_test"
             android:text="בדיקות" />
 
     </RadioGroup>

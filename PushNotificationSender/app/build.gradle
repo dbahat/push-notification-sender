@@ -2,14 +2,12 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 android {
-    compileSdkVersion 27
+    compileSdk 34
     defaultConfig {
         applicationId "amai.org.pushnotificationsender"
         minSdkVersion 17
-        targetSdkVersion 27
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -20,6 +18,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildFeatures {
+        viewBinding true
+    }
+    namespace 'amai.org.pushnotificationsender'
 }
 
 dependencies {
@@ -30,7 +32,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.2'
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
     implementation 'com.google.code.gson:gson:2.8.0'
-    implementation 'com.android.volley:volley:1.0.0'
+    implementation 'com.android.volley:volley:1.2.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

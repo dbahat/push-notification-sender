@@ -118,6 +118,7 @@ class NotificationsActivity : AppCompatActivity() {
                 TimeUnit.SECONDS.toMillis(60).toInt(),
                 0,  // Disabling retry, since it may cause duplicated push notifications to be sent.
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+        request.setShouldCache(false)
 
         Toast.makeText(this, R.string.send_in_progress, Toast.LENGTH_SHORT).show()
         requestQueue.add(request)
